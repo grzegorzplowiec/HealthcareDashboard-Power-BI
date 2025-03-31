@@ -10,8 +10,6 @@ This dashboard provides a comprehensive overview of patient wait list statistics
 2. Analyze historical monthly trend of waiting list in Inpatient & Outpatient categories
 3. Detailed specialty level & age profile analysis
 
-
-https://github.com/grzegorzplowiec/HealthcareDashboard-Power-BI/issues/1#issue-2961178068
 ![Image](https://github.com/user-attachments/assets/41624190-c0fe-4de0-a144-1a1ec9b57c41)
 
 #### Summary Section
