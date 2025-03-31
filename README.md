@@ -31,6 +31,8 @@ This dashboard provides a comprehensive overview of patient wait list statistics
 - A time-series line chart visualizes the trends for Inpatients, Day Cases, and Outpatients from 2018 to 2021.
 - Shows a growing trend in outpatient cases.
 
+![Image](https://github.com/user-attachments/assets/3eaad3e6-2de1-4365-b532-db2a4960cbb0)
+
 #### Detailed Grid View (Right Panel)
 - Displays patient wait list details in a tabular format.
 - The table is structured with columns for Day Case, Inpatient, Outpatient, and Total.
