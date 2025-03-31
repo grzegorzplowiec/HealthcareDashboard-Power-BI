@@ -10,6 +10,7 @@ This dashboard provides a comprehensive overview of patient wait list statistics
 2. Analyze historical monthly trend of waiting list in Inpatient & Outpatient categories
 3. Detailed specialty level & age profile analysis
 
+
 ![Image](https://github.com/user-attachments/assets/41624190-c0fe-4de0-a144-1a1ec9b57c41)
 
 #### Summary Section
@@ -31,6 +32,7 @@ This dashboard provides a comprehensive overview of patient wait list statistics
 - A time-series line chart visualizes the trends for Inpatients, Day Cases, and Outpatients from 2018 to 2021.
 - Shows a growing trend in outpatient cases.
 
+
 ![Image](https://github.com/user-attachments/assets/3eaad3e6-2de1-4365-b532-db2a4960cbb0)
 
 #### Detailed Grid View (Right Panel)
@@ -43,10 +45,52 @@ This dashboard provides healthcare professionals with insights into patient wait
 
 ### Steps followed 
 
-- Step 1 : Load data into Power BI Desktop, datasets are a csv files and contains two types of data categories: Inpatient(a patient tho stays in a hospital while under treatment) and Outpatient(a patient who receives medical treatment without being admitted to a hospital).
-- Step 2 : Open power query editor and check data types, total number of rows, adjust column names, add breaking columns, remove spaces by trim.
-- Step 3 : Append tables to one data set.
-- Step 4 : Moddeling data - mapping Specialties with Specialty groups, adjusting connections manually
-- Step 5 : Layout & Design workflow
-- Step 6 : Add interactivity & navigation
-- Step 7 : Testing all functionalities
+- Step 1 : Loaded data into Power BI Desktop, datasets are a csv files and contains two types of data categories: Inpatient(a patient tho stays in a hospital while under treatment) and Outpatient(a patient who receives medical treatment without being admitted to a hospital).
+- Step 2 : Opened power query editor and checked data types, total number of rows, adjusted column names, add breaking columns, removed spaces by trim.
+- Step 3 : Appended tables to one data set.
+- Step 4 : Moddeling data - mapping Specialties with Specialty groups, adjusting connections manually.
+- Step 5 : Layout & Design workflow.
+- Step 6 : Created dynamic fields to count latest month waiting patients and same month previous year waiting patients.
+
+Following DAX expressions was written:
+        
+        Latest Month Wait List = CALCULATE(SUM(All_Data[Total]),All_Data[Archive_Date] = MAX(All_Data[Archive_Date])) + 0
+
+        PY Latest Month Wait List = CALCULATE(SUM(All_Data[Total]),All_Data[Archive_Date]= EDATE(MAX(All_Data[Archive_Date]),-12)) + 0
+
+- Step 7 : Created new table to storage required measures (Average and Median).
+- Step 8 : Added slicer using table with measures.
+- Step 9 : New measure was created to find Average and Median of Total waiting list.
+
+Following DAX expressions was written:
+
+        Average Wait List = AVERAGE(All_Data[Total])
+
+        Median Wait List = MEDIAN(All_Data[Total])
+
+- Step 10 : New measure was created to switch between Average and Median measures.
+
+Following DAX expressions was written:
+
+        Avg/Med Wait List = SWITCH(VALUES('Calculation Method'[Calc Method]),"Average",[Average Wait List],"Median",[Median Wait List])
+
+- Step 11 : New measure was created to change title of the dashboard.
+
+Following DAX expressions was written:
+
+        Dynamic Title = SWITCH(VALUES('Calculation Method'[Calc Method]),"Average","Key Indicators - Patient Wait List (Average)","Median","Key Indicators - Patient Wait List (Median)")
+
+- Step 12 : New measures was created to display a caption when there is no data on the charts
+    
+Following DAX expressions was written:
+        
+        NoDataLeft = IF(ISBLANK(CALCULATE(SUM(All_Data[Total]),All_Data[Case_Type]<>"Outpatient")),"No data for selected criteria","")
+
+        NoDataRight = IF(ISBLANK(CALCULATE(SUM(All_Data[Total]),All_Data[Case_Type]="Outpatient")),"No data for selected criteria","")
+- Step 13 : Created custom tooltip chart shows split of specialty groups for particular month
+![Image](https://github.com/user-attachments/assets/5e542806-74f6-407a-a9bf-c297df03cb99)
+
+- Step 14 : Created background for dashboard.
+- Step 15 : Applied visual changes to charts and formatted numbers.
+- Step 16 : Add interactivity & navigation
+- Step 17 : Testing all functionalities
